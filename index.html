@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Nae Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Pinyon+Script&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0809;--bg2:#171011;--ink:#f6efe6;--muted:#c9bcae;--pink:#f08fa3;--pink-d:#d9607c;--gold:#d8b46a;--green:#5be3a1;--line:rgba(240,143,163,.28);--cream:#f6efe6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fbf6ee;--bg2:#f1e7d8;--ink:#1a1214;--muted:#5d4f4a;--pink:#c4455f;--pink-d:#a52f49;--gold:#8f6a1c;--green:#0c8f55;--line:rgba(196,69,95,.3)}}
+:root[data-theme="dark"]{--bg:#0c0809;--bg2:#171011;--ink:#f6efe6;--muted:#c9bcae;--pink:#f08fa3;--gold:#d8b46a;--green:#5be3a1}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:7rem}
+body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.7 'DM Sans',system-ui,sans-serif;overflow-x:hidden}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.script{font-family:'Pinyon Script','Snell Roundhand',cursive;font-weight:400;color:var(--pink)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1.4rem;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{font-size:2.2rem;line-height:1;text-decoration:none}
+.logo small{display:block;font:400 .6rem/1 'Playfair Display',serif;letter-spacing:.45em;color:var(--ink);margin-top:.3rem}
+.lvl{display:flex;align-items:center;gap:.5rem;font:500 .8rem 'DM Mono',monospace;letter-spacing:.14em;border:1px solid var(--pink);border-radius:99px;padding:.4rem .9rem;box-shadow:0 0 14px rgba(240,143,163,.25)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 3.6rem);z-index:4;display:flex;gap:1.4rem;overflow-x:auto;padding:.7rem 1.4rem;background:var(--bg2);border-bottom:1px solid var(--line);scrollbar-width:none}
+nav a{white-space:nowrap;text-decoration:none;color:var(--muted);font-weight:500;font-size:.95rem;border-bottom:2px solid transparent;padding-bottom:.15rem}
+nav a:hover,nav a.on{color:var(--ink);border-color:var(--pink)}
+section{padding:4rem 1.4rem;max-width:980px;margin:auto}
+.tag{display:inline-block;font:500 .75rem 'DM Mono',monospace;letter-spacing:.18em;color:var(--pink);border:1px solid var(--pink);border-radius:6px;padding:.3rem .7rem;margin-bottom:1.3rem}
+h1,h2{font-family:'Playfair Display',serif;font-weight:400;line-height:1.05}
+h1{font-size:clamp(2.7rem,9.5vw,5rem)}
+h1 .script,h2 .script{font-size:1.22em;display:inline-block}
+h2{font-size:clamp(2.1rem,7vw,3.4rem);margin-bottom:1rem}
+p{max-width:62ch;color:var(--muted);margin-bottom:1rem}
+.btn{display:inline-block;text-decoration:none;font:500 .85rem 'DM Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--pink);border-radius:99px;padding:.85rem 1.7rem;color:var(--ink);background:none;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--pink);color:#1a0d11}
+.hero{display:grid;gap:2.2rem;align-items:center;padding-top:3rem}
+@media(min-width:800px){.hero{grid-template-columns:1.1fr .9fr}}
+.hero .lead{font-size:1.2rem;color:var(--ink);margin:1.4rem 0 1.8rem}
+.portrait{position:relative;aspect-ratio:4/5;border-radius:200px 200px 24px 24px;border:1px solid var(--gold);background:radial-gradient(circle at 50% 35%,#2a1519,var(--bg2) 70%);overflow:hidden;display:grid;place-items:center}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait svg{width:78%;height:auto}
+.portrait .pick{position:absolute;left:50%;bottom:1rem;transform:translateX(-50%);z-index:2;font:500 .7rem 'DM Mono',monospace;letter-spacing:.1em;color:var(--ink);background:color-mix(in srgb,var(--bg) 80%,transparent);border:1px solid var(--gold);border-radius:99px;padding:.4rem .9rem;cursor:pointer;white-space:nowrap}
+.scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:.7;animation:scan 5s ease-in-out infinite}
+@keyframes scan{0%,100%{top:12%}50%{top:78%}}
+.status{margin-top:1.8rem;max-width:460px;border:1px solid var(--line);border-radius:14px;background:var(--bg2);font:400 .82rem/1.9 'DM Mono',monospace;padding:.8rem 1rem;color:var(--muted)}
+.ok{color:var(--green)}.pk{color:var(--pink)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:1.6rem}
+.card{border:1px solid var(--line);border-radius:18px;padding:1.5rem;background:linear-gradient(160deg,var(--bg2),var(--bg));position:relative}
+.card h3{font:400 1.45rem 'Playfair Display',serif;margin-bottom:.5rem;padding-right:5rem}
+.card p{font-size:.95rem;margin:0}
+.badge{position:absolute;top:1.1rem;right:1.1rem;font:500 .65rem 'DM Mono',monospace;letter-spacing:.1em;color:var(--green);border:1px solid var(--green);border-radius:99px;padding:.15rem .6rem}
+.badge.g{color:var(--gold);border-color:var(--gold)}
+.featured{border-color:var(--gold);padding:2rem 1.5rem;margin-top:1.6rem}
+.featured h3{font-size:1.9rem;padding-right:0}
+.featured .badge{position:static;display:inline-block;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.chips span{font:500 .72rem 'DM Mono',monospace;border:1px solid var(--line);border-radius:99px;padding:.25rem .7rem;color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.8rem 0}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);color:var(--muted)}
+th{color:var(--gold);font-weight:500}
+.scroll{overflow-x:auto}
+details{margin-top:1rem;border-top:1px solid var(--line);padding-top:.8rem}
+summary{cursor:pointer;color:var(--pink);font-weight:500}
+details p,details li{color:var(--muted);font-size:.95rem}
+details ul{padding-left:1.1rem;margin:.6rem 0}
+.post{border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.5rem;margin-top:1rem;background:var(--bg2)}
+.post time{font:500 .72rem 'DM Mono',monospace;letter-spacing:.12em;color:var(--green)}
+.post h3{font:400 1.5rem 'Playfair Display',serif;margin:.3rem 0 .4rem}
+.post p{margin-bottom:.5rem}
+.cream{background:var(--cream);color:#241a1c;border-radius:26px;padding:2.2rem 1.5rem}
+.cream p{color:#5d4a4a}.cream h2 .script{color:var(--pink-d)}
+.cream .tag{color:var(--pink-d);border-color:var(--pink-d)}
+form{display:grid;gap:.8rem;max-width:460px;margin-top:1rem}
+input,textarea{font:inherit;padding:.85rem 1rem;border-radius:12px;border:1px solid #d9c7b4;background:#fffaf2;color:#241a1c}
+.cream .btn{background:#241a1c;color:#f6efe6;border-color:#241a1c}
+.cream .btn:hover{background:var(--pink-d);border-color:var(--pink-d)}
+.msg{color:#0c7a49;font-weight:500;min-height:1.4rem}
+footer{text-align:center;padding:2.4rem 1rem 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+footer .script{font-size:1.8rem;display:block}
+@media (prefers-reduced-motion:reduce){.dot,.scan{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo script" href="#home">The Nae Protocol<small>SECURE THE SYSTEM · BUILD THE LIFE</small></a>
+  <div class="lvl" aria-live="polite"><span class="dot"></span><span id="lvl">LVL 00</span></div>
+</header>
+<nav aria-label="Sections">
+  <a href="#home" class="on">Home</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#blog">Blog</a><a href="#resources">Resources</a><a href="#contact">Contact</a>
+</nav>
+
+<section id="home" class="hero" data-lvl="00">
+  <div>
+    <span class="tag">LEVEL 00 · BOOT</span>
+    <h1>Secure the system. <span class="script">Build the life.</span></h1>
+    <p class="lead">Notes, projects, and lessons from a cybersecurity grad student with a criminal justice background, growing into governance, risk, compliance, and digital forensics.</p>
+    <a class="btn" href="#projects">See my work</a> <a class="btn" href="#contact" style="border-color:var(--green)">Let’s connect</a>
+    <div class="status"><span class="ok">● open to work</span><br>seeking: <span class="pk">cybersecurity &amp; digital forensics roles</span><br>focus: <span class="pk">risk, policy &amp; controls</span><br>latest: <span class="pk">capstone phase 1 report</span></div>
+  </div>
+  <div class="portrait" id="portrait">
+    <svg viewBox="0 0 200 250" role="img" aria-label="Placeholder portrait: half woman, half machine">
+      <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#f08fa3" stop-opacity=".9"/><stop offset="1" stop-color="#d8b46a" stop-opacity=".6"/></linearGradient></defs>
+      <path d="M100 20c-42 0-62 34-58 78 2 22-6 40-14 60 26-4 42 10 54 26l18 0V20z" fill="url(#g)" opacity=".75"/>
+      <path d="M100 20c42 0 62 34 58 78v70c-8 30-30 56-58 62V20z" fill="none" stroke="#d8b46a" stroke-width="1.5"/>
+      <g stroke="#5be3a1" stroke-width="1.2" fill="none" opacity=".9"><path d="M100 70h30l10 12h14M100 100h24l8-10h24M100 130h36l8 14M100 160h20l12 18h22"/><circle cx="154" cy="82" r="3"/><circle cx="156" cy="90" r="3"/><circle cx="144" cy="144" r="3"/><circle cx="154" cy="178" r="3"/></g>
+      <circle cx="122" cy="96" r="7" fill="none" stroke="#5be3a1" stroke-width="2"/><circle cx="122" cy="96" r="2.5" fill="#5be3a1"/>
+      <ellipse cx="78" cy="98" rx="7" ry="4" fill="none" stroke="#f6efe6" stroke-width="1.5"/>
+      <path d="M100 20V232" stroke="#f6efe6" stroke-opacity=".35" stroke-dasharray="3 4"/>
+    </svg>
+    <div class="scan"></div>
+    <label class="pick" for="pf">+ ADD YOUR AI PORTRAIT</label>
+    <input id="pf" type="file" accept="image/*" hidden>
+  </div>
+</section>
+
+<section id="about" data-lvl="01">
+  <span class="tag">LEVEL 01 · ABOUT</span>
+  <h2>Hi, I’m <span class="script">Nae.</span></h2>
+  <p>I’m a cybersecurity professional and graduate student at Kennesaw State, with a bachelor’s degree in criminal justice. I’m working toward a career in governance, risk, and compliance, and I love digital forensics just as much.</p>
+  <p>GRC is where I turn messy risk into clear decisions. Forensics is where my criminal justice roots come in: following the evidence, preserving it properly, and piecing together what happened.</p>
+  <p>This is where I share what I’m building, what I’m learning, and the habits that keep me moving: progress over perfection.</p>
+</section>
+
+<section id="projects" data-lvl="02">
+  <span class="tag">LEVEL 02 · PROJECTS</span>
+  <h2>What I’m <span class="script">building.</span></h2>
+  <div class="card featured">
+    <span class="badge">PHASE 1 REPORT</span>
+    <h3>Security Solutions for Akwaaba</h3>
+    <p>CYBR 7910 Capstone, Group 3. A proposed security program for a small organization running a public WordPress site: policies, a risk assessment, and a layered technical protection plan. My part: keeping the project schedule updated and assisting with risk assessment and security planning.</p>
+    <div class="chips"><span>WordPress</span><span>Apache</span><span>MariaDB</span><span>Red Hat Linux</span><span>NIST SP 800-30</span></div>
+    <details>
+      <summary>Risk assessment snapshot</summary>
+      <div class="scroll"><table>
+        <tr><th>Asset</th><th>Main threat</th><th>Likelihood / Impact</th></tr>
+        <tr><td>WordPress site</td><td>Website compromise</td><td>High / High</td></tr>
+        <tr><td>Apache server</td><td>Unauthorized changes</td><td>Medium / High</td></tr>
+        <tr><td>MariaDB</td><td>Unauthorized data access</td><td>Medium / High</td></tr>
+        <tr><td>Admin accounts</td><td>Credential misuse</td><td>Medium / High</td></tr>
+        <tr><td>Employees</td><td>Phishing</td><td>Medium / Medium</td></tr>
+      </table></div>
+      <p>The public WordPress site ranked highest because it is the most exposed.</p>
+    </details>
+    <details>
+      <summary>Policy and technical plan</summary>
+      <ul>
+        <li>Acceptable use, access management, and incident reporting policies</li>
+        <li>Role-based access control with least privilege</li>
+        <li>Firewall rules and network monitoring</li>
+        <li>Log review and a vulnerability assessment to validate controls</li>
+        <li>Phase 1 is proposals for management review. Next up: approved testing and documented findings.</li>
+      </ul>
+    </details>
+  </div>
+  <div class="grid">
+    <div class="card"><span class="badge">CYBR 7350</span><h3>Incident Response Policy</h3><p>A governance-level incident response policy for a digital media brand that relies on cloud platforms, AI tools, and subscriber data. Covers severity levels 1 to 4, escalation, regulatory coordination, evidence preservation, and lessons learned, aligned to NIST SP 800-61 Rev. 2.</p><div class="chips"><span>NIST SP 800-61</span><span>Policy</span><span>AI-assisted (disclosed)</span></div></div>
+    <div class="card"><span class="badge">CYBR 7350</span><h3>IR Plan Comparison</h3><p>A comparative analysis of two incident response documents, written alongside the policy above.</p><div class="chips"><span>Analysis</span><span>Incident response</span></div></div>
+    <div class="card"><span class="badge">CYBR 7240</span><h3>Spam Filtering with Naïve Bayes</h3><p>Cleaned the 4,601-email Spambase dataset in WEKA, cut 58 attributes to 55, and converted word counts to yes/no values. Naïve Bayes classified 88.5% of emails correctly under 10-fold cross-validation, building in about 0.03 seconds.</p><div class="chips"><span>WEKA</span><span>Naïve Bayes</span><span>Data prep</span></div></div>
+    <div class="card"><span class="badge">CYBR 7240</span><h3>Credit Risk with J48</h3><p>Compared decision-tree confidence factors on the German Credit dataset. Accuracy rose from 74% to 77% as settings changed, and I argued for judging by recall on bad customers, since approving a bad customer costs more.</p><div class="chips"><span>WEKA</span><span>J48</span><span>Recall</span><span>Confusion matrix</span></div></div>
+    <div class="card"><span class="badge">PYTHON</span><h3>Database Security Script</h3><p>A Python final project that connects to PostgreSQL with psycopg2 and logs activity to a file, built around a database injection example.</p><div class="chips"><span>Python</span><span>PostgreSQL</span><span>Logging</span></div></div>
+    <div class="card"><span class="badge">CYBR 7300</span><h3>Enterprise Asset Inventory</h3><p>Inventoried 12 systems for a fictional business supplier, from databases to Active Directory and DNS. Each asset lists its sensitive data type, owner, importance, and recovery time and data-loss targets.</p><div class="chips"><span>Asset inventory</span><span>RTO / RPO</span><span>Data classification</span></div></div>
+    <div class="card"><span class="badge">POLICY</span><h3>Acceptable Use Policy</h3><p>A policy for company-issued devices, networks, and VPN access, covering scope, restricted and permitted use, and device protection.</p><div class="chips"><span>Policy writing</span><span>Access</span></div></div>
+    <div class="card"><span class="badge g">PROPOSAL</span><h3>Protecting Sports Data with Cryptography</h3><p>A CYBR 7400 project proposal on how sports organizations can use encryption and public key infrastructure to protect contracts, scouting reports, and medical records.</p><div class="chips"><span>Cryptography</span><span>PKI</span><span>Sports tech</span></div></div>
+    <div class="card"><span class="badge">CYBR 7050</span><h3>Digital Forensics Hacker Lab</h3><p>A crime-scene lab where I documented seized items with warrant justifications and classified evidence as computer-stored records or physical evidence. I also worked through the hearsay exception for computer-generated records and the plain view doctrine, concluding that newly found ransomware files need a second warrant before examination.</p><div class="chips"><span>Digital forensics</span><span>Evidence handling</span><span>Search warrants</span><span>Plain view</span></div></div>
+    <div class="card"><span class="badge g">NEXT</span><h3>Your next project</h3><p>Labs, write-ups, and certifications can go here.</p></div>
+  </div>
+</section>
+
+<section id="blog" data-lvl="03">
+  <span class="tag">LEVEL 03 · BLOG</span>
+  <h2>Field <span class="script">notes.</span></h2>
+  <article class="post">
+    <time>NOVEMBER 2026</time>
+    <h3>What a risk assessment actually asks</h3>
+    <p>Likelihood, impact, and which assets matter most. Tap to read more.</p>
+    <details><summary>Read post</summary>
+      <p>On our capstone, we started by listing what Akwaaba needs to protect: the website, web server, database, operating system, admin accounts, and people. For each, we asked how likely a compromise is and how bad it would be.</p>
+      <p>The takeaway: exposure drives priority. The public-facing site rose to the top, while internal systems mattered because one stolen admin credential could reach all of them.</p>
+    </details>
+  </article>
+  <article class="post">
+    <time>COMING SOON</time>
+    <h3>Why I’m moving toward GRC</h3>
+    <p>Write your story here.</p>
+  </article>
+  <article class="post">
+    <time>COMING SOON</time>
+    <h3>Study habits that fit a full life</h3>
+    <p>Write your tips here.</p>
+  </article>
+</section>
+
+<section id="resources" data-lvl="04">
+  <span class="tag">LEVEL 04 · RESOURCES</span>
+  <h2>What helped <span class="script">me grow.</span></h2>
+  <div class="grid">
+    <div class="card"><h3>Frameworks</h3><p>NIST SP 800-30 for risk assessment. Add the others you use.</p></div>
+    <div class="card"><h3>Practice</h3><p>Add your favorite labs and platforms.</p></div>
+    <div class="card"><h3>Community</h3><p>Add groups and newsletters worth following.</p></div>
+  </div>
+</section>
+
+<section id="contact" data-lvl="05">
+  <div class="cream">
+    <span class="tag">LEVEL 05 · CONTACT</span>
+    <h2>Say <span class="script">hello.</span></h2>
+    <p>I’m looking for a cybersecurity or digital forensics role. If you’re hiring, or want to talk GRC, forensics, or collaborate, send a note.</p>
+    <form id="f">
+      <input aria-label="Name" placeholder="Your name" required>
+      <input aria-label="Email" type="email" placeholder="Your email" required>
+      <textarea aria-label="Message" rows="4" placeholder="Your message" required></textarea>
+      <button class="btn" type="submit">Send message</button>
+      <div class="msg" id="m" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<footer><span class="script">Learning. Building. Sharing. Growing.</span>© 2026 The Nae Protocol</footer>
+
+<script>
+(function(){
+  var lvl=document.getElementById('lvl'),links=document.querySelectorAll('nav a');
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+    lvl.textContent='LVL '+e.target.dataset.lvl;
+    links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)});}});},{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[data-lvl]').forEach(function(s){io.observe(s)});
+  document.getElementById('pf').addEventListener('change',function(e){
+    var f=e.target.files[0];if(!f)return;
+    var r=new FileReader();r.onload=function(){
+      var p=document.getElementById('portrait'),old=p.querySelector('img');if(old)old.remove();
+      var i=new Image();i.alt='Portrait';i.src=r.result;p.insertBefore(i,p.firstChild);
+      var s=p.querySelector('svg');if(s)s.style.display='none';};
+    r.readAsDataURL(f);});
+  document.getElementById('f').addEventListener('submit',function(ev){
+    ev.preventDefault();
+    document.getElementById('m').textContent='Thanks! This form is a demo. Connect it to your email service to receive messages.';
+    ev.target.reset();});
+})();
+</script>
+</body>
+</html>
